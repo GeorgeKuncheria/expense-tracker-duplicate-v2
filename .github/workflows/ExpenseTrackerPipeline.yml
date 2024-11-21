@@ -28,6 +28,20 @@ jobs:
     name: Security Check
     runs-on: ubuntu-latest
     steps:
+      # Step 1: Clone Repository
+      - name: Clone Repository
+        uses: actions/checkout@v2
+
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # Step 3: Install Dependencies
+      - name: Install Dependencies
+        run: npm install
+
       # Step 4: Run Security Check
       - name: Run Security Check
         run: |
@@ -46,7 +60,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: [StaticTest, SecurityCheck]
     steps:
-      # Step 5: Deploy
       - name: Deploy
         run: |
           echo 'Deploying the application...'
