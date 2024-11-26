@@ -13,13 +13,14 @@ import EmojiPicker from "emoji-picker-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast"
-import { IncomeParams } from "../../../../../../types";
+import { BudgetParams, IncomeParams } from "../../../../../../types";
 
 interface CreateBudgetProps {
   id: string;
+  onAddBudget: (budget: BudgetParams) => void;
 }
 
-function CreateBudgets({ id }: CreateBudgetProps) {
+function CreateBudgets({ id,onAddBudget }: CreateBudgetProps) {
   const [emojiIcon, setEmojiIcon] = useState("😀");
   const [openEmojiPicker, setOpenEmojiPicker] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -53,11 +54,13 @@ function CreateBudgets({ id }: CreateBudgetProps) {
 
       if (response.ok) 
         {
-
-
+          const createdBudget = await response.json();
+          
           toast({
             description: "Budget created successfully",
           });
+
+          onAddBudget(createdBudget);
 
 
           setIsDialogOpen(false); // Close the dialog
@@ -66,7 +69,8 @@ function CreateBudgets({ id }: CreateBudgetProps) {
       
       else {
         toast({
-          description: "Failed to create an Budget Source",
+          variant: "destructive",
+          description: "Failed to create a Budget Source",
         });
       }
 
