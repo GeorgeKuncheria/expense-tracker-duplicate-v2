@@ -18,10 +18,12 @@ declare type CreateUserParams = {
 }
 
 declare type BudgetParams = {
+    _id?: string;
     name: string;
     amount: number;
     icon: string;
     createdBy: string;
+    createdAt?: Date;
 }
 
 declare type IncomeParams = {
@@ -30,4 +32,14 @@ declare type IncomeParams = {
     icon : string;
     createdBy : string;
 }
+
+
+declare type ExpenseParams = {
+    name : string;
+    amount : number;
+    budgetId : string;
+    createdBy : string;
+    createdAt ?: string;
+}
+
 
